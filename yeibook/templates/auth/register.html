@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/register.css') }}">
+{% endblock %}
+{% block content %}
+    {% if get_flashed_messages() %}
+        {% for category, msg in get_flashed_messages(with_categories=True, category_filter=['warning', 'success']) %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+                {{ msg }}
+                <button class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="register-ui">
+        <div class="register-header">
+            <h2 class="title">叶书</h2>
+            <div class="slogan">赠书于人&nbsp;手留余香</div>
+        </div>
+        <div class="form-container">
+            <form action="{{ url_for('web.register') }}" method="post" id="register-form">
+                {% if form %}
+                    {{ form.csrf_token }}
+                {% endif %}
+                {#                <input type="hidden" name="next" value="{{ next }}">#}
+                <div class="form-group">
+                    <label for="id-email">用户名</label>
+                    <input type="text" name="email" placeholder="请输入您的邮箱帐号" class="form-control" id="id-email"
+                           aria-describedby="emailHelp" value="{{ form.data['email'] | default('',true) }}">
+                    <span class="check-username"></span>
+                    {#                    {% if form.email.errors %}#}
+                    {#                        {% for err in form.email.errors %}#}
+                    {#                            <span class="err">#}
+                    {#                                {{ err }}#}
+                    {#                            </span>#}
+                    {#                        {% endfor %}#}
+                    {#                    {% endif %}#}
+                </div>
+                <div class="form-group">
+                    <label for="id-nickname">昵称</label>
+                    <input type="text" name="nickname" placeholder="请输入您的昵称" class="form-control" id="id-nickname"
+                           aria-describedby="emailHelp" value="{{ form.data['nickname'] | default('',true) }}">
+                    <span class="check-nickname"></span>
+                </div>
+                <div class="form-group avatar">
+                    <label for="select-avatar">选择您的头像</label>
+                    <select name="wx_avatar" id="select-avatar">
+                        <option value="1.gif">1</option>
+                        <option value="2.gif">2</option>
+                        <option value="3.gif">3</option>
+                        <option value="4.gif">4</option>
+                        <option value="5.gif">5</option>
+                        <option value="6.gif">6</option>
+                        <option value="7.gif">7</option>
+                        <option value="8.gif">8</option>
+                        <option value="9.gif">9</option>
+                        <option value="10.gif">10</option>
+                    </select>
+                    <img src="../../static/avatars/1.gif" class="img-fluid" id="avatar">
+                </div>
+                <div class="form-group">
+                    <label for="id-password">密码</label>
+                    <input type="password" name="password" class="form-control" id="id-password" placeholder="密码最少6位">
+                    <span class="check-password"></span>
+                    {#                    {% if form.password.errors %}#}
+                    {#                        {% for err in form.password.errors %}#}
+                    {#                            <span class="err">#}
+                    {#                                {{ err }}#}
+                    {#                            </span>#}
+                    {#                        {% endfor %}#}
+                    {#                    {% endif %}#}
+                </div>
+                <div class="form-group">
+                    <label for="id-confirm-password">确认密码</label>
+                    <input type="password" name="confirm_password" class="form-control" id="id-confirm-password"
+                           placeholder="确认您的密码">
+                    <span class="check-confirm-password"></span>
+                    {#                    {% if form.password.errors %}#}
+                    {#                        {% for err in form.password.errors %}#}
+                    {#                            <span class="err">#}
+                    {#                                {{ err }}#}
+                    {#                            </span>#}
+                    {#                        {% endfor %}#}
+                    {#                    {% endif %}#}
+                </div>
+                <button type="submit" class="btn btn-info btn-block">注册</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script>
+        const register_form = $('#register-form');
+        const email = $('#id-email');
+        const nickname = $('#id-nickname');
+        const password = $('#id-password');
+        const confirm_password = $('#id-confirm-password');
+        const email_reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+        const select_avatar = $('#select-avatar');
+        let avatar = $('#avatar');
+        let avatarNum = '1';
+        let email_flag = false;
+        let nickname_flag = false;
+        let password_flag = false;
+        let confirm_password_flag = false;
+
+        select_avatar.change(function () {
+            avatarNum = $(this).val();
+            avatar.attr('src', '../../static/avatars/' + avatarNum);
+        });
+
+        email.blur(function () {
+            let _this = $(this);
+            $.ajax({
+                url: '{{ url_for("web.user_query") }}',
+                method: 'post',
+                data: {
+                    email: _this.val()
+                },
+                complete: function (res) {
+                    if (res.responseJSON.is_duplicated === 1) {
+                        $('.check-username').html('该帐号已被注册');
+                        email_flag = false;
+                    } else {
+                        if (_this.val().trim() === '') {
+                            $('.check-username').html('邮箱帐号不得为空');
+                            email_flag = false;
+                        } else if (!email_reg.test(_this.val())) {
+                            $('.check-username').html('邮箱帐号格式错误');
+                            email_flag = false;
+                        } else {
+                            $('.check-username').html('');
+                            email_flag = true;
+                        }
+                    }
+                }
+            });
+        });
+
+        nickname.blur(function () {
+            let _this = $(this);
+            $.ajax({
+                url: '{{ url_for("web.nickname_query") }}',
+                method: 'post',
+                data: {
+                    nickname: _this.val()
+                },
+                complete: function (res) {
+                    if (res.responseJSON.is_duplicated === 1) {
+                        $('.check-nickname').html('该昵称已被使用');
+                        nickname_flag = false;
+                    } else {
+                        if (_this.val().trim() === '') {
+                            $('.check-nickname').html('昵称不得为空');
+                            nickname_flag = false;
+                        } else if (_this.val().trim().length < 2 || _this.val().trim().length > 10) {
+                            $('.check-nickname').html('昵称需要2-10个字喔');
+                            nickname_flag = false;
+                        } else {
+                            $('.check-nickname').html('');
+                            nickname_flag = true;
+                        }
+                    }
+                }
+            });
+        });
+
+        password.blur(function () {
+            if ($(this).val().trim() === '') {
+                $('.check-password').html('密码不得为空');
+                password_flag = false;
+            } else if ($(this).val().trim().length < 6) {
+                $('.check-password').html('密码至少需要6位喔');
+                password_flag = false;
+            } else {
+                $('.check-password').html('');
+                password_flag = true;
+            }
+        });
+
+        confirm_password.blur(function () {
+            if ($(this).val() !== password.val()) {
+                $('.check-confirm-password').html('两次密码不同');
+                password_flag = false;
+                confirm_password_flag = false;
+            } else {
+                $('.check-confirm-password').html('');
+                password_flag = true;
+                confirm_password_flag = true;
+            }
+        });
+
+        email.focus(function () {
+            $('.check-username').html('');
+        });
+
+        nickname.focus(function () {
+            $('.check-nickname').html('');
+        });
+
+        password.focus(function () {
+            $('.check-password').html('');
+        });
+
+        confirm_password.focus(function () {
+            $('.check-confirm-password').html('');
+        });
+
+        register_form.submit(function () {
+            if (!email_flag || !nickname_flag || !password_flag || !confirm_password_flag) {
+                return false;
+            }
+
+        })
+    </script>
+    {#    <script src="{{ url_for('static', filename='fnd/js/check_login_form.js') }}"></script>#}
+{% endblock %}

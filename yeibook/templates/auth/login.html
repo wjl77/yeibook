@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/login.css') }}">
+{% endblock %}
+{% block content %}
+    {% if get_flashed_messages() %}
+        {% for category, msg in get_flashed_messages(with_categories=True, category_filter=['warning', 'success']) %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+                {{ msg }}
+                <button class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="login-ui">
+        <div class="login-header">
+            <h2 class="title">叶书</h2>
+            <div class="slogan">赠书于人&nbsp;手留余香</div>
+        </div>
+        <div class="form-container">
+            <form action="{{ url_for('web.login') }}" method="post" id="login-form">
+                {% if form %}
+                    {{ form.csrf_token }}
+                {% endif %}
+                <input type="hidden" name="next" value="{{ next }}">
+                <div class="form-group">
+                    <label for="id-email">用户名</label>
+                    <input type="text" name="email" placeholder="请输入您的邮箱帐号" class="form-control" id="id-email"
+                           aria-describedby="emailHelp" value="{{ form.email.data | default('',true) }}">
+                    <span class="check-username"></span>
+{#                    {% if form.email.errors %}#}
+{#                        {% for err in form.email.errors %}#}
+{#                            <span class="err">#}
+{#                                {{ err }}#}
+{#                            </span>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+                </div>
+                <div class="form-group">
+                    <label for="id-password">密码</label>
+                    <input type="password" name="password" class="form-control" id="id-password" placeholder="请输入您的密码">
+                    <span class="check-password"></span>
+{#                    {% if form.password.errors %}#}
+{#                        {% for err in form.password.errors %}#}
+{#                            <span class="err">#}
+{#                                {{ err }}#}
+{#                            </span>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+                </div>
+                <div class="form-group form-check form-info">
+                    <a id="forget-password" class="forget-password"
+                       href="{{ url_for('web.forget_password_request') }}">
+                        忘记密码?
+                    </a>
+                    <div class="days_login">
+                        <div class="chkbox">
+                            <input type="checkbox" name="check" class="form-check-input" id="id-check" checked>
+                        </div>
+                        <div class="checkbox-label">
+                            <label class="id-check text-muted" for="id-check">7天免登录</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info btn-block">登录</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='fnd/js/check_login_form.js') }}"></script>
+{% endblock %}
