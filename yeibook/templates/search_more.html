@@ -1,0 +1,14 @@
+{% for book in page_data.items %}
+    <a href="{{ url_for('web.book_detail', isbn=book.isbn) }}">
+        <div class="item">
+            <div class="left">
+                <img src="{{ book.img_url }}">
+            </div>
+            <div class="right">
+                <div class="title">{{ book.title }}</div>
+                <div>{{ book.pub_date }}</div>
+                <div class="summary">{{ book.intro | default('暂无', true) }}</div>
+            </div>
+        </div>
+    </a>
+{% endfor %}

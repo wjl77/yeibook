@@ -1,0 +1,17 @@
+{% for book in page_data.items %}
+    <div class="row col-padding">
+        <a href="{{ url_for('web.book_detail', isbn=book.isbn) }}" class="">
+            <div class="col-md-2">
+                <img class="book-img-small shadow" src="{{ book.img_url }}">
+            </div>
+            <div class="col-md-7 flex-vertical description-font">
+                <span class="title">{{ book.title }}</span>
+                {#                    <span>{{ [book.author | d(''), book.publisher | d('', true) , '￥' + book.price | d('')] | join(' / ') }}</span>#}
+                {#                    <span>{{book.info}}</span>#}
+                <span>{{ book.pub_date }}</span>
+                {#                    <span>豆瓣评分&nbsp;{{ book.rating | d('暂无', true) }}</span>#}
+                <span class="summary">{{ book.intro | default('', true) }}</span>
+            </div>
+        </a>
+    </div>
+{% endfor %}

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/gift_wish_common.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="books-result-title">
+        我想要的书籍&nbsp;共{{ wishes | length }}本
+    </div>
+    {% if wishes %}
+    <div class="books-container">
+        {% for wish in wishes %}
+            {% if not loop.last %}
+                <div class="wrapping">
+                    <a href="{{ url_for('web.book_detail', isbn=wish.book.isbn) }}">
+                        <div class="item" data-id="{{ wish.book.isbn }}">
+                            <div class="left">
+                                <img class="" src="{{ wish.book.image }}">
+                            </div>
+                            <div class="middle">
+                                    <div class="m-item">{{ wish.book.title }}</div>
+                                    <div class="m-item">{{ wish.book.author }}</div>
+                                    {#                            <span id="publisher">{{ gift.book.publisher }}</span>#}
+                                    {#                            <span id="price">{{ gift.book.price }}</span>#}
+                                    <div id="isbn" class="m-item">{{ wish.book.isbn }}</div>
+
+                                    <a class="btn btn-danger btn-sm m-item redraw"
+                                       href="javascript:;" data-target="#Modal-{{ wish.id }}" data-toggle="modal">
+                                        撤销
+                                    </a>
+                            </div>
+                            <div class="right">
+                                {% if wish.wishes_count %}
+                                    <a href="{{ url_for('web.book_detail', isbn=wish.book.isbn) }}">
+                                        <span class="badge badge-info badge-pill">{{ wish.wishes_count }}人赠送</span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <!-- 确认按钮 -->
+                            <div class="modal fade" id="Modal-{{ wish.id }}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <span>撤销心愿</span>
+                                                <button class="close" data-dismiss="modal" style="outline: none;">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                确定要撤销这个心愿吗?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-info confirm-btn">确定</button>
+                                                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- // 确认按钮 -->
+                        </div>
+                    </a>
+                </div>
+            {% else %}
+                <div class="wrapping">
+                    <a href="{{ url_for('web.book_detail', isbn=wish.book.isbn) }}">
+                        <div class="item" data-id="{{ wish.id }}" style="border-bottom: none">
+                            <div class="left">
+                                <img class="" src="{{ wish.book.image }}">
+                            </div>
+                            <div class="middle">
+                                    <div class="m-item">{{ wish.book.title }}</div>
+                                    <div class="m-item">{{ wish.book.author }}</div>
+                                    {#                            <span id="publisher">{{ gift.book.publisher }}</span>#}
+                                    {#                            <span id="price">{{ gift.book.price }}</span>#}
+                                    <div id="isbn" class="m-item">{{ wish.book.isbn }}</div>
+
+                                    <a class="btn btn-danger btn-sm m-item redraw"
+                                       href="javascript:;" data-target="#Modal-{{ wish.id }}" data-toggle="modal">
+                                        撤销
+                                    </a>
+                            </div>
+                            <div class="right">
+                                {% if wish.wishes_count %}
+                                    <a href="{{ url_for('web.book_detail', isbn=wish.book.isbn) }}">
+                                        <span class="badge badge-info badge-pill">{{ wish.wishes_count }}人赠送</span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <!-- 确认按钮 -->
+                            <div class="modal fade" id="Modal-{{ wish.id }}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <span>撤销心愿</span>
+                                                <button class="close" data-dismiss="modal" style="outline: none;">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                确定要撤销这个心愿吗?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-info confirm-btn">确定</button>
+                                                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- // 确认按钮 -->
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    {#    <script src="{{ url_for('static', filename="js/util.js") }}"></script>#}
+    {#    <script src="{{ url_for('static', filename='js/search_result.js') }}"></script>#}
+    <script src="{{ url_for('static', filename='fnd/js/my_wish.js') }}"></script>
+{% endblock %}

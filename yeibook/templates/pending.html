@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/pending.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="page-title">
+        {% if drifts %}
+            我的交易记录
+        {% else %}
+            我当前没有任何交易记录
+        {% endif %}
+    </div>
+    <div class="drift-container">
+        {% for drift in drifts %}
+            <div class="drift-item" data-id="{{ drift.drift_id }}">
+                <div class="top">
+                    <div class="left">
+                        <img src="{{ drift.book_img }}" class="img-fluid">
+                    </div>
+                    <div class="middle">
+                        <div>{{ drift.book_title }}</div>
+                        <div>{{ drift.book_author }}</div>
+                        <div>发起日期&nbsp;&nbsp;{{ drift.date }}</div>
+                        <div>
+                            {% if drift.you_are == 'requester' %}
+                                <span>请求对象&nbsp;&nbsp;</span>
+                            {% else %}
+                                <span>请求者&nbsp;&nbsp;</span>
+                            {% endif %}
+                            <span>{{ drift.operator }}</span>
+                        </div>
+                        <div><span class="text-danger">{{ drift.status_str }}</span></div>
+                        <div>
+                            <span>地址&nbsp;&nbsp;</span>
+                            {#                            <span>{{ drift.recipient_name }}&nbsp;&nbsp;</span>#}
+                            <span>{{ drift.address | truncate(8) }}</span>
+                        </div>
+                        <div><span>手机&nbsp;&nbsp;</span><span>{{ drift.mobile }}</span></div>
+                    </div>
+                    <div class="right">
+                        {% if drift.you_are == 'gifter' %}
+                            {% if drift.status.value == 1 %}
+                                {#                                {{ url_for('web.mailed_drift', did=drift.drift_id) }}#}
+                                <a href="javascript:;" data-target="#mailed-modal-{{ drift.drift_id }}" data-toggle="modal">
+                                    <span class="btn btn-info btn-sm">寄送</span>
+                                </a>
+                                {#                                {{ url_for('web.reject_drift', did=drift.drift_id) }}#}
+                                <a href="javascript:;" data-target="#deny-modal-{{ drift.drift_id }}" data-toggle="modal">
+                                    <span class="btn btn-danger btn-sm">拒绝</span>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        {% if drift.you_are == 'requester' %}
+                            {% if drift.status.value == 1 %}
+                                {#                                {{ url_for('web.redraw_drift', did=drift.drift_id) }}#}
+                                <a href="javascript:;" data-target="#redraw-modal-{{ drift.drift_id }}"
+                                   data-toggle="modal">
+                                    <span class="btn btn-danger btn-sm">撤销</span>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="bottom">
+                    {% if drift.you_are == 'receiver' %}
+                        {% set message_flag = '他的留言' %}
+                    {% else %}
+                        {% set message_flag = '你的留言' %}
+                    {% endif %}
+                    <div>
+                        <span class="message-flag">{{ message_flag }}</span>
+                        <span>&nbsp;{{ drift.message }}</span>
+                    </div>
+                </div>
+                <!-- 撤销确认按钮 -->
+                <div class="modal fade" id="redraw-modal-{{ drift.drift_id }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>撤销</span>
+                                <button class="close" data-dismiss="modal" style="outline: none;">&times;
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                确定要撤销这个请求吗?
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info redraw-btn">确定</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // 撤销确认按钮 -->
+                <!-- 已邮寄确认按钮 -->
+                <div class="modal fade" id="mailed-modal-{{ drift.drift_id }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>寄送确认</span>
+                                <button class="close" data-dismiss="modal" style="outline: none;">&times;
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                确定已经寄送此书给请求者了吗?
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info mailed-btn">确定</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // 已邮寄确认按钮 -->
+                <!-- 拒绝按钮 -->
+                <div class="modal fade" id="deny-modal-{{ drift.drift_id }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>拒绝</span>
+                                <button class="close" data-dismiss="modal" style="outline: none;">&times;
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                确定拒绝对方的请求吗？
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info deny-btn">确定</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // 拒绝按钮 -->
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='fnd/js/pending.js') }}"></script>
+{% endblock %}

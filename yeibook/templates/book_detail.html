@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    {#    <link rel="stylesheet" href="{{ url_for('static', filename='3rd/ui/remodal.css')}}">#}
+    {#    <link rel="stylesheet" href="{{ url_for('static', filename='3rd/ui/remodal-default-theme.css')}}">#}
+    {#    <link rel="stylesheet" href="{{ url_for('static', filename='css/book-detail.css')}}">#}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/book_detail.css') }}">
+{% endblock %}
+{% block content %}
+    {% if get_flashed_messages() %}
+        {% for category, msg in get_flashed_messages(with_categories=True, category_filter=['warning', 'success']) %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+                {{ msg }}
+                <button class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="book-container">
+        <div class="left">
+            <img src="{{ book.image }}"/>
+        </div>
+        <div class="right">
+            <div>
+                <span class="title">{{ book.title }}</span>
+            </div>
+            <div>
+                <span>作者&nbsp;&nbsp;</span>
+                <span>{{ book.author }}</span>
+            </div>
+            <div>
+                <span>译者&nbsp;|&nbsp;出版社&nbsp;&nbsp;</span>
+                <span>{{ book.info }}</span>
+            </div>
+            <div>
+                <span>出版年月&nbsp;&nbsp;</span>
+                <span>{{ book.pubdate }}</span>
+            </div>
+            <div>
+                <span>豆瓣评分&nbsp;&nbsp;</span>
+                <span>{{ book.rating | d('暂无', true) }}</span>
+            </div>
+            <div>
+                <span>定价&nbsp;&nbsp;</span>
+                <span>{{ book.price }}</span>
+            </div>
+            <div>
+                <span>ISBN&nbsp;&nbsp;</span>
+                <span id="isbn">{{ book.isbn }}</span>
+            </div>
+            {% if wishes.total or gifts.total %}
+                <div class="color-count title">
+                    <span>{{ wishes.total }}人想要 / </span>
+                    <span>{{ gifts.total }}人可赠送</span>
+                </div>
+            {% endif %}
+            <div class="trade">
+                {% if not has_in_gifts and not has_in_wishes %}
+                    <div class="gifting">
+                        <a class="btn btn-info"
+                           href="javascript:;" data-target="#giftingModal" data-toggle="modal">
+                            赠送此书
+                        </a>
+                    </div>
+                    <div class="wishing">
+                        {#                    {{ url_for('web.save_to_wish', isbn=book.isbn) }}#}
+                        <a class="btn btn-info"
+                           href="javascript:;" data-target="#wishingModal" data-toggle="modal">
+                            加入到心愿清单
+                        </a>
+                    </div>
+                {% elif has_in_wishes %}
+                    <div>
+                        <span class="bg-success wished" id="wished">已添加至心愿清单</span>
+                    </div>
+                {% else %}
+                    <div>
+                        <span class="bg-success gifted">已添加至赠送清单</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="intro">
+        {{ book.intro }}
+    </div>
+
+    {% if gifts.total!= 0 and not has_in_gifts %}
+
+        <div class="requests">
+            <i class="bi bi-arrow-down-circle-fill"></i>
+            <span>向他们请求此书</span>
+        </div>
+
+        {% for gift in gifts.trades[::-1] %}
+            <div class="gift-trades gifter-item" data-id="{{ gift.id }}">
+                <div class="avatar">
+                    <img src="{{ gift.user_head }}">
+                </div>
+                <div class="username">
+                    {{ gift.user_name }}
+                </div>
+                <div class="time">
+                    {{ gift.time | timeago_format | month_format }}
+                </div>
+                <div class="request">
+                    {#                    {{ url_for('web.send_drift', gid=gift.id) }}#}
+                    <a class="btn btn-info btn-sm"
+                       href="javascript:;" data-target="#requestModal-{{ gift.id }}" data-toggle="modal">向他请求此书</a>
+                </div>
+                <!-- 请求此书confirm -->
+                <div class="modal fade" id="requestModal-{{ gift.id }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>确认</span>
+                                <button class="close" data-dismiss="modal" style="outline: none;">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                您确定要向<span class="text-info">{{ gift.user_name }}</span>请求这本书吗？
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info requestConfirm">确定</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // 请求此书confirm -->
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if wishes.total != 0 and has_in_gifts %}
+        <div class="requests">
+            <i class="bi bi-arrow-down-circle-fill"></i>
+            <span>向他们赠送此书</span>
+        </div>
+
+        {% for wish in wishes.trades[::-1] %}
+            <div class="gift-trades wish-item" data-id="{{ wish.id }}">
+                <div class="avatar">
+                    <img src="{{ wish.user_head }}">
+                </div>
+                <div class="username">
+                    {{ wish.user_name }}
+                </div>
+                <div class="time">
+                    {{ wish.time | timeago_format | month_format }}
+                </div>
+                <div class="request">
+{#                    {{ url_for('web.satisfy_wish', wid=wish.id, isbn=[book.isbn]) }}#}
+                    <a class="btn btn-info"
+                       href="javascript:;" data-target="#sendModal-{{ wish.id }}" data-toggle="modal">向他赠送此书</a>
+                </div>
+                <!-- 赠送给对方confirm -->
+                <div class="modal fade" id="sendModal-{{ wish.id }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span>确认赠送</span>
+                                <button class="close" data-dismiss="modal" style="outline: none;">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                您确定要赠送此书给<span class="text-info">{{ wish.user_name }}</span>吗？
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info sendConfirm">确定</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // 赠送给对方confirm -->
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- 赠送此书confirm -->
+    <div class="modal fade" id="giftingModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>您确定要赠送这本书吗？</span>
+                    <button class="close" data-dismiss="modal" style="outline: none;">&times;</button>
+                </div>
+                <div class="modal-body">
+                    诚信为立人之本，如果您不想赠送此书，或者没有这本书，请不要随意发布虚假信息。
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" id="confirmed">确定赠送</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // 赠送此书confirm -->
+    <!-- 添加心愿confirm -->
+    <div class="modal fade" id="wishingModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>确定要将此书加入到心愿清单吗？</span>
+                    <button class="close" data-dismiss="modal" style="outline: none;">&times;</button>
+                </div>
+                <div class="modal-body">
+                    将此书加入到您的心愿
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" id="wish-confirmed">确定加入</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // 添加心愿confirm -->
+
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $(function () {
+
+            // 添加至赠送清单
+            $('#confirmed').click(function () {
+                window.location.href = '/gifts/book/' + '{{ book.isbn }}';
+            });
+            // 添加至心愿清单
+            $('#wish-confirmed').click(function () {
+                window.location.href = '/wish/book/' + '{{ book.isbn }}';
+            });
+            // 请求确认
+            $('.requestConfirm').click(function () {
+                let gid = $(this).parents('.gifter-item').data('id');
+                window.location.href = '/drift/' + gid;
+            });
+            // 向他人赠送
+            $('.sendConfirm').click(function () {
+                let wid = $(this).parents('.wish-item').data('id');
+                window.location.href = '/satisfy/wish/' + wid;
+            });
+        });
+    </script>
+    {#    <script src="{{ url_for('static', filename='fnd/js/book_detail.js') }}"></script>#}
+{% endblock %}

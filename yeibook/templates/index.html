@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block head %}
+    <meta name="Keywords" content="公益，公益赠书，公益赠书平台，社交，赠书，公益，读书会，阅读">
+    <meta name="Description" content="公益赠书，图书赠书，叶书公益">
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/index.css') }}">
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <!-- 最近赠书列表 -->
+    <input type="hidden" value="{{ url_for("web.recent") }}" id="recent-url">
+    <div class="recent-list" id="books">
+
+    </div>
+    <!-- // 最近赠书列表 -->
+    <!-- 查看更多 -->
+    <div id="more">
+        <button type="button" id="load_more" class="btn btn-info btn-block click-more">加载更多</button>
+    </div>
+    <div id="end-notice">
+        <button type="button" class="btn btn-info btn-block click-more">已经到底了喔</button>
+    </div>
+    <!-- // 查看更多 -->
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='fnd/js/index.js') }}"></script>
+{% endblock %}

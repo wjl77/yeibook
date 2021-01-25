@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/mine.css') }}">
+{% endblock %}
+{% block content %}
+    {% if get_flashed_messages() %}
+        {% for category, msg in get_flashed_messages(with_categories=True, category_filter=['warning', 'success']) %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show">
+                {{ msg }}
+                <button class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="title text-center">个人中心</div>
+    <form action="{{ url_for('web.mine') }}" method="post" enctype="multipart/form-data" id="avatar-form">
+        {% if form %}
+            {{ form.csrf_token }}
+        {% endif %}
+        <div class="avatar-zone">
+            <button type="submit" class="btn btn-info btn-sm upload">上传</button>
+            <div class="display-avatar"><img src="{{ current_user.user_head }}"></div>
+            <label class="choose">
+                点我，设置您的头像
+                <input type="file" name="avatar" id="">
+            </label>
+            <div class="msg text-center text-danger"></div>
+        </div>
+    </form>
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='fnd/js/mine.js') }}"></script>
+{% endblock %}

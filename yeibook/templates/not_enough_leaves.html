@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/not_enough.css')}}">
+{% endblock %}
+{#{% block navbar %}#}
+{#    #}
+{#{% endblock %}#}
+{% block content %}
+    <div class="notice-container">
+        <div class="not-enough-container">
+            <div class="notice-1">
+                <div class="alert alert-warning w-100 text-center">
+                    你没有足够的飘叶&nbsp;当前你有{{ leaves }}个飘叶
+                </div>
+            </div>
+            <div class="notice-2">
+                <span class="badge badge-info">温馨提示</span>
+                <ul class="list-unstyled">
+                    <li class="important"><span>必需先成功赠送2本书，才能请求1本书喔</span></li>
+                    <li>当你请求2本书时，必须先赠送1本书</li>
+                    <li>每请求一本书，需要消耗1个飘叶</li>
+                </ul>
+            </div>
+            <div class="notice-3">
+                <span class="badge badge-info">获取飘叶的方式</span>
+                <ul class="list-unstyled">
+                    <li>1，将书籍加入到赠送清单，即可获取0.5个飘叶，请确认你愿意赠送该书</li>
+                    <li>2，每成功寄送1本书，就可以获得1个飘叶</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block right_menus %}
+    {{ super() }}
+{% endblock %}

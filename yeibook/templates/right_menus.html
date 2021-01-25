@@ -1,0 +1,156 @@
+<!-- 赠书者排行 -->
+<div class="right-menu right-menu-box1">
+    <div class="title text-center mb-2">赠送排行</div>
+    {% if popular_gifters_list %}
+        {% for popular_gifter in popular_gifters_list %}
+            {% if not loop.last %}
+                <div class="menu-item">
+                    <div class="left">
+                        <div>
+                            <img src="{{ popular_gifter.avatar }}" class="img-fluid">
+                        </div>
+
+                        <div class="gifter"
+                             title="{{ popular_gifter.nickname }}">{{ popular_gifter.nickname | truncate(10) }}</div>
+                    </div>
+                    <div class="right">
+                        <span class="count">{{ popular_gifter.count }}</span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="menu-item" style="margin-bottom: 0">
+                    <div class="left">
+                        <div>
+                            <img src="{{ popular_gifter.avatar }}" class="img-fluid">
+                        </div>
+
+                        <div class="gifter"
+                             title="{{ popular_gifter.nickname }}">{{ popular_gifter.nickname | truncate(10) }}</div>
+                    </div>
+                    <div class="right">
+                        <span class="count">{{ popular_gifter.count }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="text-center" style="font-size: 12px;">暂无最新排行</div>
+    {% endif %}
+</div>
+<!-- // 赠书者排行 -->
+<!-- 心愿排行 -->
+<div class="right-menu right-menu-box1">
+    <div class="title text-center mb-2">心愿排行</div>
+    {% if popular_wishes_list %}
+        {% for popular_wish in popular_wishes_list %}
+            {% if not loop.last %}
+                <div class="menu-item">
+                    <div class="left">
+                        <div>
+                            <img src="{{ popular_wish.wish_image }}" class="img-fluid">
+                        </div>
+                        <div class="wish"
+                             title="{{ popular_wish.wish_title }}">{{ popular_wish.wish_title | truncate(10, True) }}</div>
+                    </div>
+                    <div class="right">
+                        <span class="count">{{ popular_wish.count }}</span>
+                    </div>
+                </div>
+            {% else %}
+                <div class="menu-item" style="margin-bottom: 0">
+                    <div class="left">
+                        <div>
+                            <img src="{{ popular_wish.wish_image }}" class="img-fluid">
+                        </div>
+                        <div class="wish"
+                             title="{{ popular_wish.wish_title }}">{{ popular_wish.wish_title | truncate(10, True) }}</div>
+                    </div>
+                    <div class="right">
+                        <span class="count">{{ popular_wish.count }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="text-center" style="font-size: 12px;">暂无最新排行</div>
+    {% endif %}
+</div>
+<!-- // 心愿排行 -->
+<!-- 大咖秀 -->
+{#<div class="right-menu right-menu-box2">#}
+{#    <div class="title text-center mb-2">大咖秀</div>#}
+{#    <div class="menu-item">#}
+{#        <img src="{{ url_for('static', filename='fnd/images/big_show.jpg') }}" class="img-fluid">#}
+{#    </div>#}
+
+{#    <div class="menu-item">#}
+{#        <i class="bi bi-person-fill"></i>#}
+{#        <span>无敌</span>#}
+{#    </div>#}
+{#    <div class="menu-item">#}
+{#        <i class="bi bi-alarm-fill"></i>#}
+{#        <span>2021-1-14 19:00 - 21:30</span>#}
+{#    </div>#}
+{#    <div class="menu-item">#}
+{#        <i class="bi bi-geo-alt-fill"></i>#}
+{#        <span>杭州市滨江区物联网街369号江虹国际创新园B座1楼会议室</span>#}
+{#    </div>#}
+{#    <div class="menu-item club-group">#}
+{#        欢迎报名&nbsp;&nbsp;请+以下任一微信#}
+{#    </div>#}
+{#    <div class="menu-item club-wechat">#}
+{#        <span>lihe2928</span>#}
+{#        <span>fonziee</span>#}
+{#        <span>576983833</span>#}
+{#    </div>#}
+{#</div>#}
+<!-- // 大咖秀 -->
+<!-- 文史哲读书会 -->
+{#<div class="right-menu right-menu-box2">#}
+{#    <div class="title text-center mb-2">文史哲读书会</div>#}
+{#    <div class="menu-item">#}
+{#        <img src="{{ url_for('static', filename='fnd/images/study.jpg') }}" class="img-fluid">#}
+{#    </div>#}
+{##}
+{#    <div class="menu-item">#}
+{#        <i class="bi bi-person-fill"></i>#}
+{#        <span>无敌</span>#}
+{#    </div>#}
+{#    <div class="menu-item">#}
+{#        <i class="bi bi-alarm-fill"></i>#}
+{#        <span>2021-1-14 19:00 - 21:30</span>#}
+{#    </div>#}
+{#    <div class="menu-item">#}
+{#        <i class="bi bi-geo-alt-fill"></i>#}
+{#        <span>杭州市滨江区物联网街369号江虹国际创新园B座1楼会议室</span>#}
+{#    </div>#}
+{#    <div class="menu-item club-group">#}
+{#        欢迎报名&nbsp;&nbsp;请+以下任一微信#}
+{#    </div>#}
+{#    <div class="menu-item club-wechat">#}
+{#        <span>lihe2928</span>#}
+{#        <span>fonziee</span>#}
+{#        <span>576983833</span>#}
+{#    </div>#}
+{#</div>#}
+<!-- // 文史哲读书会 -->
+<!-- 叶书公众号 -->
+<div class="right-menu right-menu-box3">
+    <div class="title text-center mb-2">欢迎关注&nbsp;叶书</div>
+    <div class="menu-item">
+        <img src="{{ url_for('static', filename='fnd/images/leafbook_qr_code.jpg') }}"
+             class="img-fluid">
+    </div>
+</div>
+<!-- // 叶书公众号 -->
+<!-- copyright -->
+<div class="copyright">
+    <div class="desc1 text-muted">
+        <span>本站开发者&nbsp;&nbsp;</span>
+        <img src="{{ url_for('static', filename='fnd/images/weichat.png') }}" class="weichat">
+        <a href="mailto:550310889@qq.com"><span>&nbsp;wj_lester</span></a>
+    </div>
+    <div class="desc2 text-muted">&copy;2021 yeibook.com, all rights reserved</div>
+    <div class="desc3 text-muted">本站图书信息与图书图片均来源于<a href="https://book.douban.com/">豆瓣读书</a>&nbsp;所有权归豆瓣所有</div>
+</div>
+<!-- copyright -->

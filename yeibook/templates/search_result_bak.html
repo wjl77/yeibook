@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/search-result.css') }}">
+{% endblock %}
+{% block content %}
+    {{ super() }}
+    <div style="margin-top:20px;" class="row flex-vertical-center">
+        {% if page_data %}
+            <div class="col-md-6">
+                {#            <span class="sub-title">搜索 <span class="space highlight"#}
+                {#                                             id="keyword">{{ books.keyword }}</span>的结果</span>#}
+                <span class="sub-title">搜索 <span class="space highlight"
+                                                 id="keyword">{{ q }}</span>的结果</span>
+            </div>
+            <div class="col-md-3 col-md-offset-3">
+                <span class="sub-title"> 共 <span class="space"
+                                                 id="total">{{ page_data.total }}</span> 条记录</span>
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+    <div id="search_result_container">
+        {% if page_data %}
+            {% for book in page_data.items %}
+                <div class="row col-padding">
+                    <a href="{{ url_for('web.book_detail', isbn=book.isbn) }}" class="">
+                        <div class="col-md-2">
+                            <img class="book-img-small shadow" src="{{ book.img_url }}">
+                        </div>
+                        <div class="col-md-7 flex-vertical description-font">
+                            <span class="title">{{ book.title }}</span>
+                            {#                    <span>{{ [book.author | d(''), book.publisher | d('', true) , '￥' + book.price | d('')] | join(' / ') }}</span>#}
+                            {#                    <span>{{book.info}}</span>#}
+                            <span>{{ book.pub_date }}</span>
+                            {#                    <span>豆瓣评分&nbsp;{{ book.rating | d('暂无', true) }}</span>#}
+                            <span class="summary">{{ book.intro | default('', true) }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            <div id="more">
+
+            </div>
+        {% else %}
+            <p>搜索的关键字不符合要求，请重新输入关键字</p>
+        {% endif %}
+        {#        {% for book in books.books %}#}
+        {#            <div class="row col-padding">#}
+        {#                <a href="{{ url_for('web.book_detail', isbn=book.isbn) }}" class="">#}
+        {#                    <div class="col-md-2">#}
+        {#                        <img class="book-img-small shadow" src="{{ book.image }}">#}
+        {#                    </div>#}
+        {#                    <div class="col-md-7 flex-vertical description-font">#}
+        {#                        <span class="title">{{ book.title }}</span>#}
+        {#                        <span>{{ [book.author | d(''), book.publisher | d('', true) , '￥' + book.price | d('')] | join(' / ') }}</span>#}
+        {#                        <span>{{ book.info }}</span>#}
+        {#                        <span>{{ book.pubdate }}</span>#}
+        {#                        <span>豆瓣评分&nbsp;{{ book.rating | d('暂无', true) }}</span>#}
+        {#                        <span class="summary">{{ book.intro | default('', true) }}</span>#}
+        {#                    </div>#}
+        {#                </a>#}
+        {#            </div>#}
+        {#        {% endfor %}#}
+    </div>
+    <div id="load_more_block">
+        {% if page_data and page_data.total > 1 %}
+            <button id="load_more">查看更多</button>
+        {% endif %}
+    </div>
+
+    {#    <div class="row">#}
+    {#        <div class="flex-hor-center">#}
+    {#            <ul class="pagination" id="pagination"></ul>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    {{ form.csrf_token }}#}
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='3rd/jquery.twbsPagination.min.js') }}"></script>
+    <script src="{{ url_for('static', filename="js/util.js") }}"></script>
+    <script src="{{ url_for('static', filename='js/search_result.js') }}"></script>
+    <script>
+        let page = 1;
+        let more = $('#more');
+        let html = null;
+
+        $('#load_more').click(function () {
+            page += 1;
+
+            $.get('{{ url_for("web.search_more", q=q) }}', {
+                page: page
+            }, function (res) {
+                if (!res.data) {
+                    $('#load_more_block').css({'display': 'none'});
+                } else {
+                    html = $(res.data);
+                    more.append(html);
+                }
+            })
+        })
+    </script>
+{% endblock %}

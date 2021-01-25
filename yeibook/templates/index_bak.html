@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+    <div id="books" class="row">
+        {#        {% for book in recent %}#}
+        {#            <div class="col-md-4 book-container">#}
+        {#                <a href="{{ url_for('web.book_detail', isbn=book.isbn) }}" class="">#}
+        {#                    <div class="col-md-4 no-padding">#}
+        {#                        <img class="book-img cssshadow" src="{{ book.image }}">#}
+        {#                    </div>#}
+        {#                    <div style="margin-left: 0;" class="col-md-8 flex-vertical book-info">#}
+        {#                        <span class="title">{{ book.title }}</span>#}
+        {#                        <div class="description-font"><span>{{ book.create_time }}</span>#}
+        {#                        </div>#}
+        {#                        <span class="summary description-font">{{ book.intro }}</span>#}
+        {#                    </div>#}
+        {#                </a>#}
+        {#            </div>#}
+        {#        {% endfor %}#}
+    </div>
+    <div id="more">
+        <button type="button" id="load_more" class="btn">查看更多</button>
+    </div>
+    <div id="end-notice">
+        <button type="button" class="btn">已经到底了喔^_^</button>
+    </div>
+{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $(function () {
+            let page = 1;
+            let books = $('#books');
+            let html = null;
+            const more = $('#more');
+
+            $('#end-notice').hide();
+
+            $.get('{{ url_for("web.recent") }}', {page: page}, function (res) {
+
+                if (!res.data) {
+                    books.html('暂无最近赠书');
+                    more.css({'display': 'none'});
+                } else {
+                    html = $(res.data);
+                    books.append(html);
+                }
+                {#console.log(res);#}
+            });
+
+            $('#load_more').click(function () {
+                page += 1;
+
+                $.get('{{ url_for("web.recent") }}', {page: page}, function (res) {
+                    if (!res.data) {
+                        more.css({'display': 'none'});
+                        {#$('#end-notice').html('已经到底了喔');#}
+                        $('#end-notice').show();
+
+                    } else {
+                        html = $(res.data);
+                        books.append(html);
+                    }
+                    {#console.log(res);#}
+                })
+            })
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% for book in recent %}
+    <a href="{{ url_for('web.book_detail', isbn=book.isbn) }}">
+        {% if not loop.last %}
+            <div class="recent-list-item">
+                <div class="info"><span class="title badge badge-info">{{ book.title }}</span>&nbsp;&nbsp;<span
+                        class="pubdate text-muted">{{ book.announced_time | timeago_format }}</span></div>
+                <div class="desc">
+                    <div class="left">
+                        <img src="{{ book.image }}" class="img-fluid">
+                    </div>
+                    <div class="right">
+                        <div class="intro">
+                            {{ book.intro }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="recent-list-item" style="border-bottom: none;">
+                <div class="info"><span class="title badge badge-info">{{ book.title }}</span>&nbsp;&nbsp;<span
+                        class="pubdate text-muted">{{ book.announced_time | timeago_format }}</span></div>
+                <div class="desc">
+                    <div class="left">
+                        <img src="{{ book.image }}" class="img-fluid">
+                    </div>
+                    <div class="right">
+                        <div class="intro">
+                            {{ book.intro }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </a>
+{% endfor %}
