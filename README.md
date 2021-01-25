@@ -1,5 +1,5 @@
 # yeibook 葉書
-## 作品URL https://yeibook.com
+## 汪子良的作品URL https://yeibook.com
 ## 圖書社交/公益贈書平台，簡體版，移動端/PC端
 ### 葉書，個人獨立開發完成，從爬蟲->入數據庫->後端->前端->測試調整->部署上線，個人一條龍全部搞定
 ### 基于 Python Flask Web框架
