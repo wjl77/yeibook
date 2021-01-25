@@ -1,0 +1,145 @@
+div.alert {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+div.alert > button {
+    padding-bottom: 11px;
+}
+
+.book-container {
+    margin-top: 10px;
+    display: flex;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.book-container .left {
+    margin-right: 10px;
+}
+
+.book-container .left img {
+    width: 92px;
+    height: 135px;
+}
+
+.book-container .right {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    color: #212529;
+}
+
+.book-container .right .title {
+    color: #17A2B8;
+}
+
+.book-container .right div {
+    margin-bottom: 10px;
+}
+
+.book-container .right .trade {
+    margin-top: 5px;
+    display: flex;
+}
+
+.book-container .right .trade a {
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.book-container .right .trade .wished,
+.book-container .right .trade .gifted {
+    padding: 5px;
+    color: #fff;
+}
+
+.intro {
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.requests {
+    margin: 10px 0;
+    /*font-size: 12px;*/
+    padding-left: 10px;
+    color: purple;
+    display: flex;
+    align-items: center;
+}
+
+.requests i {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.requests span {
+    /*padding-top: 5px;*/
+}
+
+.gift-trades {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.gift-trades > div {
+    margin-right: 10px;
+}
+
+.gift-trades .avatar > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.gift-trades .username {
+    color: #17A2B8;
+}
+
+.gift-trades a {
+    font-size: 14px;
+}
+
+div.modal {
+    /*border: none;*/
+    border: 1px solid #17A2B8;
+}
+
+.modal .modal-header {
+    display: flex;
+    align-items: center;
+    background-color: #17A2B8;
+    color: #fff;
+}
+
+.modal .modal-header > button {
+    color: #fff;
+    padding-top: 11px;
+}
+
+@media (max-width: 767px) {
+    .book-container .right {
+        font-size: 12px;
+    }
+
+    .gift-trades a {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .book-container .left img {
+        width: 200px;
+        height: auto;
+    }
+}

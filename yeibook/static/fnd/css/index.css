@@ -1,0 +1,10 @@
+.recent-list a {
+    text-decoration: none;
+    color: #212529;
+}
+
+/*@media (max-width: 767px) {*/
+    /*.layout-header {*/
+        /*display: none;*/
+    /*}*/
+/*}*/

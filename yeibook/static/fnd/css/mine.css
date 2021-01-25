@@ -1,0 +1,86 @@
+div.alert {
+    margin-top: 10px;
+}
+
+.title {
+    margin-top: 10px;
+    color: purple;
+}
+
+.avatar-zone {
+    margin-top: 10px;
+    background-color: #fff;
+    height: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+}
+
+.avatar-zone .upload {
+    align-self: flex-end;
+    font-size: 24px;
+}
+
+.avatar-zone .display-avatar {
+    box-sizing: border-box;
+    width: 150px;
+    height: 150px;
+    /*border: 2px solid #17A2B8;*/
+    align-self: center;
+    /*background-image: url("../images/1.gif");*/
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /*border-radius: 50%;*/
+}
+
+.avatar-zone .display-avatar img {
+    width: 100%;
+    height: auto;
+}
+
+.avatar-zone .choose {
+    margin-top: 10px;
+    align-self: center;
+    background-color: #17A2B8;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    color: #fff;
+    padding: 4px 2px 0 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    /*line-height: 50px;*/
+}
+
+.avatar-zone .choose input {
+    display: none;
+}
+
+@media (max-width: 992px) {
+
+    .title {
+        font-size: 12px;
+    }
+
+    .avatar-zone {
+        height: 250px;
+    }
+
+    .avatar-zone .upload {
+        font-size: 12px;
+    }
+
+    .avatar-zone .choose {
+        font-size: 12px;
+        line-height: 22px;
+    }
+
+    div.msg {
+        font-size: 12px;
+    }
+
+
+}

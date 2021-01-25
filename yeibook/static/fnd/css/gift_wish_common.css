@@ -1,0 +1,79 @@
+.books-result-title {
+    margin-top: 10px;
+    /*font-size: 14px;*/
+}
+
+.books-container {
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.books-container a {
+    text-decoration: none;
+    color: #212529;
+    font-size: 12px;
+}
+
+.books-container .item {
+    display: flex;
+    /*justify-content: space-between;*/
+    border-bottom: 1px solid #ccc;
+    /*align-items: center;*/
+    padding: 10px 0;
+    /*margin-bottom: 10px;*/
+}
+
+.books-container .item .left {
+    flex: 30%;
+    margin-right: 20px;
+    align-self: center;
+}
+
+.books-container .item .left img {
+    width: 92px;
+    height: 135px;
+}
+
+.books-container .item .middle {
+    flex: 50%;
+    /*align-self: center;*/
+}
+
+.books-container .item .middle .m-item {
+    margin-bottom: 17px;
+}
+
+.books-container .item .middle .redraw {
+    color: #fff;
+}
+
+.books-container .item .right {
+    flex: 20%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.books-container .item .right a {
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+}
+
+.modal .modal-header {
+    display: flex;
+    align-items: center;
+    background-color: #17A2B8;
+    color: #fff;
+}
+
+.modal .modal-header > button {
+    color: #fff;
+    padding-top: 11px;
+}
+
+@media (max-width: 991px) {
+    .books-result-title {
+        font-size: 12px;
+    }
+}

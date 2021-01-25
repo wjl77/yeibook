@@ -1,0 +1,115 @@
+div.alert {
+    margin-top: 10px;
+}
+
+.drift-container {
+    margin: 10px auto;
+    width: 80%;
+    padding: 10px 10px 0 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.drift-container .drift-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #17A2B8;
+    color: #fff;
+    height: 50px;
+}
+
+.drift-container .drift-body {
+    /*margin-top: 10px;*/
+    /*background-color: #f7f7f7;*/
+}
+
+.drift-container .drift-body .drift-content {
+    padding: 15px 15px 0 15px;
+}
+
+.drift-container .drift-body .drift-content .drift-info {
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.drift-container .drift-body .drift-content .drift-info div {
+    margin-bottom: 10px;
+}
+
+.drift-container .drift-body .drift-content .drift-info div:last-of-type {
+    margin-bottom: 0;
+}
+
+.drift-container .drift-body .drift-content .drift-notice {
+    display: flex;
+    margin-top: 10px;
+    padding: 10px;
+    color: #17A2B8;
+}
+
+.drift-container .drift-body .drift-content .drift-form-container {
+    margin-top: -6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.drift-form-container > div {
+    margin-bottom: 15px;
+}
+
+.drift-form-container > div:last-of-type {
+    margin-bottom: 0;
+}
+
+.drift-form-container .receiver-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.drift-form-container .receiver-mobile {
+    display: flex;
+    flex-direction: column;
+}
+
+.drift-form-container .receiver-address {
+    display: flex;
+    flex-direction: column;
+}
+
+.drift-form-container .receiver-address textarea {
+    resize: none;
+}
+
+.drift-form-container .receiver-tosay {
+    display: flex;
+    flex-direction: column;
+}
+
+.drift-form-container .receiver-submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drift-form-container .receiver-submit button {
+    width: 200px;
+}
+
+.drift-form-container .receiver-submit > div:last-of-type {
+    margin-top: 10px;
+}
+
+@media (max-width: 991px) {
+    .drift-container {
+        width: 100%;
+    }
+}
+
+
+

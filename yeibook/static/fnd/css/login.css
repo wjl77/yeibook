@@ -1,0 +1,81 @@
+div.alert {
+    margin-top: 10px;
+}
+
+.login-ui {
+    margin-top: 10px;
+}
+
+.login-ui .login-header .title {
+    color: #17A2B8;
+}
+
+.login-ui .login-header .slogan {
+    color: purple;
+}
+
+.login-ui .login-header .slogan,
+.login-ui .login-header .title {
+    text-align: center;
+}
+
+.login-ui .form-container {
+    margin-top: 10px;
+    font-size: 14px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.login-ui .form-container .err,
+.login-ui .form-container .check-username,
+.login-ui .form-container .check-password {
+    color: red;
+}
+
+.login-ui .form-container .form-info {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+    align-items: center;
+}
+
+.login-ui .form-container .form-info .days_login {
+    display: flex;
+    align-items: flex-start;
+}
+
+.login-ui .form-container .form-info .days_login .chkbox {
+    align-self: flex-start;
+}
+
+/*.login-ui .form-container .form-info > label.id-check.text-muted {*/
+/*font-weight: normal;*/
+/*}*/
+
+.login-ui .form-container .form-info a.forget-password {
+    color: #17A2B8;
+    text-decoration: none;
+}
+
+.login-ui .form-container label {
+    font-weight: bold;
+    color: #17A2B8;
+}
+
+@media (min-width: 768px) {
+    .login-ui .form-container {
+        width: 60%;
+        margin: 0 auto;
+        margin-top: 10px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 991px) {
+    .login-ui .form-container .form-info .days_login .chkbox input {
+        transform: translateY(-5px);
+    }
+}
