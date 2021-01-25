@@ -3,5 +3,5 @@
 ### 基于 Python Flask Web框架
 ### nginx + uwsgi部署
 ### 移動端首頁截圖
-
+![img](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210125172420.jpg)
 ### pc端首頁截圖
