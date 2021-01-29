@@ -43,7 +43,7 @@
                             {% if drift.status.value == 1 %}
                                 {#                                {{ url_for('web.mailed_drift', did=drift.drift_id) }}#}
                                 <a href="javascript:;" data-target="#mailed-modal-{{ drift.drift_id }}" data-toggle="modal">
-                                    <span class="btn btn-info btn-sm">寄送</span>
+                                    <span class="btn btn-info btn-sm">已快递</span>
                                 </a>
                                 {#                                {{ url_for('web.reject_drift', did=drift.drift_id) }}#}
                                 <a href="javascript:;" data-target="#deny-modal-{{ drift.drift_id }}" data-toggle="modal">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="bottom">
-                    {% if drift.you_are == 'receiver' %}
+                    {% if drift.you_are == 'gifter' %}
                         {% set message_flag = '他的留言' %}
                     {% else %}
                         {% set message_flag = '你的留言' %}
@@ -103,7 +103,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                确定已经寄送此书给请求者了吗?
+                                确定已经快递此书给请求者了吗?
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-info mailed-btn">确定</button>
