@@ -1,5 +1,5 @@
 # yeibook 葉書，公益贈書/圖書社交平台
-## 子良作品URL https://yeibook.com
+## 子良獨立開發的作品URL https://yeibook.com
 ## 或掃以下二維碼，進葉書網
 ![img0](https://github.com/wjl77/yeibook/blob/main/yeibook_http.png)
 ## 圖書社交/公益贈書平台，簡體版，移動端/PC端
