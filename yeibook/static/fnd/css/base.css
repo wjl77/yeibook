@@ -1,43 +1,49 @@
 /* Base样式 */
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: purple;
+    opacity: .5;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: purple;
-    opacity: 1;
+    opacity: .5;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
     color: purple;
-    opacity: 1;
+    opacity: .5;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: purple;
+    opacity: .5;
 }
 ::-ms-input-placeholder { /* Microsoft Edge */
     color: purple;
+    opacity: .5;
 }
 /* mobile */
 .mobile_q::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: purple;
     font-size: 14px;
+    opacity: .5;
 }
 .mobile_q:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: purple;
-    opacity: 1;
+    opacity: .5;
     font-size: 14px;
 }
 .mobile_q::-moz-placeholder { /* Mozilla Firefox 19+ */
     color: purple;
-    opacity: 1;
+    opacity: .5;
     font-size: 14px;
 }
 .mobile_q:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: purple;
     font-size: 14px;
+    opacity: .5;
 }
 .mobile_q::-ms-input-placeholder { /* Microsoft Edge */
     color: purple;
     font-size: 14px;
+    opacity: .5;
 }
 
 form {
