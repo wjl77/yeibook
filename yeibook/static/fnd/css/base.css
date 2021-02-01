@@ -1,4 +1,45 @@
 /* Base样式 */
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: purple;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: purple;
+    opacity: 1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: purple;
+    opacity: 1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: purple;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: purple;
+}
+/* mobile */
+.mobile_q::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: purple;
+    font-size: 14px;
+}
+.mobile_q:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: purple;
+    opacity: 1;
+    font-size: 14px;
+}
+.mobile_q::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: purple;
+    opacity: 1;
+    font-size: 14px;
+}
+.mobile_q:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: purple;
+    font-size: 14px;
+}
+.mobile_q::-ms-input-placeholder { /* Microsoft Edge */
+    color: purple;
+    font-size: 14px;
+}
+
 form {
     box-sizing: border-box;
 }
@@ -459,8 +500,8 @@ form {
 }
 
 .mobile-header .mobile-bottom .left a.active {
-    background-color: purple;
-    color: #fff;
+    /*background-color: purple;*/
+    color: purple;
     /*font-size: 12px;*/
     font-weight: normal;
     /*padding: 5px;*/
