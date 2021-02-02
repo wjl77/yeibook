@@ -9,4 +9,4 @@
 ### 移動端首頁截圖
 ![img](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210202092023.jpg)
 ### pc端首頁截圖
-![img2](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210125172927.png)
+![img2](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210202092258.png)
