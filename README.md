@@ -7,7 +7,8 @@
 ### 基于 Python Flask Web框架 && Scrapy框架，
 ### MySQL5.7资料库
 ### nginx + uwsgi部署
-### 本產品為強化用戶體驗，多個地方使用了AJAX，首頁即時信息等，註冊部份，也使用了AJAX來檢測郵箱帳號與匿稱是否有重復，以確保唯一性，以下為Flask端的驗證接口與前端代碼:
+### 本產品為強化用戶體驗，多個地方使用了AJAX，首頁即時信息等，註冊部份，也使用了AJAX來檢測郵箱帳號與匿稱是否有重復，以確保唯一性，以下為Flask端的驗證接口與前端程式碼:
+
 
 ### 移動端首頁截圖
 ![img](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210202092023.jpg)
