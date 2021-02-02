@@ -12,6 +12,8 @@
 ![img00](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210202201247.png)
 #### 前端AJAX程式碼(郵箱帳號部份):
 ![img01](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210202202013.png)
+#### 後端驗證程式碼:
+![img02](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210202203146.png)
 ### 移動端首頁截圖
 ![img](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210202092023.jpg)
 ### pc端首頁截圖
