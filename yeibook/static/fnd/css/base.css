@@ -437,7 +437,7 @@ form {
 
 .mobile-header {
     background-color: #fff;
-    height: 70px;
+    height: 80px;
     padding: 0 17px;
 }
 
@@ -450,11 +450,10 @@ form {
 
 .mobile-header .mobile-top .logo {
     color: purple;
-    /*font-size: 18px;*/
     font-weight: bold;
     margin-right: 10px;
     flex: 10%;
-    font-size: 18px;
+    font-size: 20px;
     /*text-align: center;*/
 }
 
@@ -465,7 +464,7 @@ form {
 .mobile-header .mobile-top .search-form .search-box {
     /*width: 280px;*/
     width: 100%;
-    height: 30px;
+    height: 40px;
     /*background-color: #ccc;*/
     display: flex;
     align-items: center;
@@ -478,10 +477,11 @@ form {
     border: none;
     /*margin-left: 5px;*/
     outline: none;
+    padding-bottom: 3px;
 }
 
 .mobile-header .mobile-top .search-form .search-box button {
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     outline: none;
     /*margin-right: -4px;*/
@@ -571,7 +571,7 @@ form {
 @media (max-width: 991px) {
 
     .layout {
-        padding-top: 75px;
+        padding-top: 85px;
     }
 
     .layout-header {
