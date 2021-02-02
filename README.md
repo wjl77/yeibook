@@ -10,7 +10,7 @@
 ### 本產品為強化用戶體驗，多個地方使用了AJAX，首頁即時信息等，註冊部份，也使用了AJAX來檢測郵箱帳號與匿稱是否有重復，以確保唯一性，以下為Flask端的驗證接口與前端程式碼:
 #### POST請求方式，Flask接口程式碼:
 ![img00](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210202201247.png)
-
+#### 前端AJAX程式碼:
 
 ### 移動端首頁截圖
 ![img](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210202092023.jpg)
