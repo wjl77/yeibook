@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19实时疫情</title>
+    <script src="{{ url_for('static', filename='fnd/js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='fnd/js/echarts.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='fnd/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='fnd/images/icon.jpg') }}">
+    <style>
+        .title {
+            margin: 10px 0 20px 0;
+            text-align: center;
+        }
+        .flex-box {
+            display: flex;
+        }
+
+        .flex-box #global_rank {
+            flex: 50%;
+            height: 500px;
+        }
+
+        .flex-box #china_rank {
+            flex: 50%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div class="title">{{ current_date }}</div>
+<div class="container">
+    <div class="row flex-box">
+        <div class="col-lg-6">
+            <div id="china_rank"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="global_rank"></div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="china_url" value="{{ url_for('web.covid19_china') }}">
+<input type="hidden" id="global_url" value="{{ url_for('web.covid19_global') }}">
+<script>
+    const china_url = $('#china_url').val();
+    const global_url = $('#global_url').val();
+    const china_rank_chart = echarts.init(document.getElementById('china_rank'));
+    const global_rank_chart = echarts.init(document.getElementById('global_rank'));
+
+    let global_rank_data = null;
+    let global_rank_result = null;
+    let global_rank_list = [];
+
+    // China
+    $.ajax({
+        url: china_url,
+        method: 'POST',
+        complete: function (res) {
+            if (res.responseJSON.code === 0) {
+                let china_rank_list = res.responseJSON.data;
+                let yAxisDataList = [];
+                let seriesDataList = [];
+
+                for (let i = 0; i < china_rank_list.length; i++) {
+                    yAxisDataList.push(china_rank_list[i].province);
+                    seriesDataList.push(china_rank_list[i].curConfirm);
+                }
+
+                let china_options = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    title: {
+                        text: 'COVID-19 中国现有确诊分布'
+                    },
+                    xAxis: {
+                        type: 'value',
+                        show: false
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: yAxisDataList,
+                        axisLine: {
+                            show: false
+                        },
+                        axisTick: {
+                            interval: 'auto',
+                            show: false,
+                        }
+                    },
+                    legend: {
+                        data: ['现有确诊'],
+                        right: '6%'
+                    },
+                    series: [
+                        {
+                            name: '现有确诊',
+                            type: 'bar',
+                            data: seriesDataList,
+                            label: {
+                                show: true,
+                                position: 'right'
+                            }
+                        }
+                    ]
+                };
+
+                china_rank_chart.setOption(china_options);
+            } else {
+                china_rank_chart.html('无数据')
+            }
+        }
+    });
+
+    // global
+    $.ajax({
+        url: global_url,
+        method: 'POST',
+        complete: function (res) {
+            // let global_rank_list = [];
+            global_rank_data = res.responseJSON;
+            if (global_rank_data.code === 0) {
+                global_rank_result = global_rank_data.data;
+                // console.log(global_rank_result);
+                global_rank_list.push(global_rank_result);
+
+                // console.log(global_rank_list);
+
+                let global_chart_options = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '13%'
+                    },
+                    title: {
+                        text: 'COVID-19 全球排名前10',
+                        // subtext: '依据14天平均新增确诊排名',
+                        left: 'left'
+                    },
+                    yAxis: {
+                        axisTick: {
+                            interval: 'auto',
+                            show: false,
+                        },
+                        type: 'category',
+                        data: [global_rank_list[0][0].country,
+                            global_rank_list[0][1].country,
+                            global_rank_list[0][2].country,
+                            global_rank_list[0][3].country,
+                            global_rank_list[0][4].country,
+                            global_rank_list[0][5].country,
+                            global_rank_list[0][6].country,
+                            global_rank_list[0][7].country,
+                            global_rank_list[0][8].country,
+                            global_rank_list[0][9].country],
+                        axisLine: {
+                            show: false
+                        }
+                    },
+                    xAxis: {
+                        type: 'value',
+                        show: false
+                    },
+                    legend: {
+                        data: ['14天平均确诊', '累计死亡'],
+                        right: '5%'
+                    },
+                    series: [
+                        {
+                            type: 'bar',
+                            name: '14天平均确诊',
+                            data: [
+                                global_rank_list[0][0].avg_confirm,
+                                global_rank_list[0][1].avg_confirm,
+                                global_rank_list[0][2].avg_confirm,
+                                global_rank_list[0][3].avg_confirm,
+                                global_rank_list[0][4].avg_confirm,
+                                global_rank_list[0][5].avg_confirm,
+                                global_rank_list[0][6].avg_confirm,
+                                global_rank_list[0][7].avg_confirm,
+                                global_rank_list[0][8].avg_confirm,
+                                global_rank_list[0][9].avg_confirm
+                            ],
+                            label: {
+                                show: true,
+                                position: 'right'
+                            },
+                            // stack: 'total'
+                        },
+                        {
+                            type: 'bar',
+                            name: '累计死亡',
+                            data: [
+                                global_rank_list[0][0].died,
+                                global_rank_list[0][1].died,
+                                global_rank_list[0][2].died,
+                                global_rank_list[0][3].died,
+                                global_rank_list[0][4].died,
+                                global_rank_list[0][5].died,
+                                global_rank_list[0][6].died,
+                                global_rank_list[0][7].died,
+                                global_rank_list[0][8].died,
+                                global_rank_list[0][9].died
+                            ],
+                            label: {
+                                show: true,
+                                position: 'right'
+                            },
+                            // stack: 'total'
+                        },
+                    ]
+                };
+
+                global_rank_chart.setOption(global_chart_options);
+            } else {
+                global_rank_chart.html('无数据');
+            }
+        }
+    });
+</script>
+</body>
+</html>
