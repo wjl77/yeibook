@@ -15,9 +15,6 @@ from view_models.book import BookViewModel
 from .blueprint import web
 
 
-__author__ = '七月'
-
-
 @web.route('/current/gifts')
 def current_gifts():
     """ 即时赠送信息 """

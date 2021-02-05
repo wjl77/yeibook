@@ -8,9 +8,6 @@ from models.login_history import LoginHistory
 from models.user import User
 from .blueprint import web
 
-__author__ = '七月'
-
-
 @web.route('/set/cookie')
 def set_cookie():
     response = make_response('测试Cookie')
