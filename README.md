@@ -8,7 +8,7 @@
 ### 基于 Python Flask Web框架 && Scrapy框架，
 ### MySQL5.7资料库
 ### nginx + uwsgi部署
-### 新增每日更新的國際疫情統計模塊，請見下圖:
+### 新增每日更新的國際疫情統計模塊(flask+echarts)，請見下圖:
 ![img000](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210206143125.jpg)
 ### 相關程式碼:
 ![img001](https://github.com/wjl77/yeibook/blob/main/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20210206094445.png)
